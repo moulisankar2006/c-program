@@ -1,0 +1,542 @@
+// Simple Structure in Global Scope - Example 1
+
+#include <stdio.h>
+
+struct 
+{
+    int batch;
+}aiml1, aiml2;
+
+void main() 
+{
+   aiml1.batch = 2022;
+   aiml2.batch = 2023;
+   printf("I Year  :%d batch",aiml1.batch);
+   printf("\nII Year :%d batch",aiml2.batch);
+}
+
+*************************************************************************
+Output
+I Year  :2022 batch
+II Year :2023 batch
+*************************************************************************
+
+// Structure in Global Scope - Example 2
+
+#include <stdio.h>
+
+struct 
+{
+    char *emp_name;
+    int emp_experience;
+    int emp_salary;
+}cadre1,cadre2;
+
+int head()
+{
+    struct
+    {
+    char *emp_name;
+    int emp_experience;
+    int emp_salary;
+    } head;
+    
+    head.emp_experience=20;
+    
+    if( head.emp_experience>19)
+    {
+        head.emp_salary = 60000;
+    }
+    else
+    {
+       head.emp_salary = 40000;
+    }
+    return head.emp_salary;
+}
+void main() 
+{
+   printf("Enter Cadre 1 Salary :");
+   scanf("%d",&cadre1.emp_salary);
+   printf("Enter Cadre 2 Salary :");
+   scanf("%d",&cadre2.emp_salary);
+   printf("\nSalary of Cadre 1 is %d",cadre1.emp_salary);
+   printf("\nSalary of Cadre 2 is %d",cadre2.emp_salary);
+   printf("\nSalary of Head is %d",head());
+   
+}
+
+*************************************************************************
+Output
+Enter Cadre 1 Salary :15000
+Enter Cadre 2 Salary :25000
+Salary of Cadre 1 is 15000
+Salary of Cadre 2 is 25000
+Salary of Head is 60000
+*************************************************************************
+
+
+// local and global scope of structure vs structure tag
+
+#include <stdio.h>
+
+struct cadre
+{
+    char *emp_name;
+    int emp_experience;
+    int emp_salary;
+}cadre1,cadre2;
+
+int head()
+{
+    struct cadre head;
+    head.emp_experience=20;
+    
+    if( head.emp_experience>19)
+    {
+        head.emp_salary = 60000;
+    }
+    else
+    {
+       head.emp_salary = 40000;
+    }
+    return head.emp_salary;
+}
+void main() 
+{
+   printf("Enter Cadre 1 Salary :");
+   scanf("%d",&cadre1.emp_salary);
+   printf("Enter Cadre 2 Salary :");
+   scanf("%d",&cadre2.emp_salary);
+   printf("\nSalary of Cadre 1 is %d",cadre1.emp_salary);
+   printf("\nSalary of Cadre 2 is %d",cadre2.emp_salary);
+   printf("\nSalary of Head is %d",head());
+   
+}
+
+
+*************************************************************************
+Output
+Enter Cadre 1 Salary :15000
+Enter Cadre 2 Salary :25000
+Salary of Cadre 1 is 15000
+Salary of Cadre 2 is 25000
+Salary of Head is 60000
+*************************************************************************
+
+// Initializing Structure and accessing its members
+
+#include <stdio.h>
+struct car
+{
+   int year;
+   char *model;
+   char *fueltype;
+   float mileage;
+};
+
+void main() 
+{
+  // Initialising Structure
+  struct car c1 = {2016,"Toyota","Diesel",64.6};
+  struct car c2 = {2020,"Renault","Petrol",29.5};
+  
+  // Accessing members
+  printf("Car 1 Details");
+  printf("\nYear      : %d",c1.year);
+  printf("\nModel     : %s",c1.model);
+  printf("\nFuel Type : %s",c1.fueltype);
+  printf("\nMileage   : %f",c1.mileage);
+  
+  printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+  printf("\nCar 2 Details");
+  printf("\nYear      : %d",c2.year);
+  printf("\nModel     : %s",c2.model);
+  printf("\nFuel Type : %s",c2.fueltype);
+  printf("\nMileage   : %f",c2.mileage);
+ 
+}
+
+*************************************************************************
+Output
+Car 1 Details
+Year      : 2016
+Model     : Toyota
+Fuel Type : Diesel
+Mileage   : 64.599998
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Car 2 Details
+Year      : 2020
+Model     : Renault
+Fuel Type : Petrol
+Mileage   : 29.500000
+*************************************************************************
+
+// Nested Structure - as Seperate Structure
+
+#include <stdio.h>
+struct student
+ {
+       char name[20];
+       float cgpa;
+ };
+struct studies
+ {
+      char college[30];
+      struct student stu;
+ };
+
+void main()
+{
+struct studies s;
+scanf("%s %f %s", s.stu.name,&s.stu.cgpa,
+                             s.college);
+printf("\nStudent Information");
+printf("\nName :%s \nCGPA :%.2f \nCollege :%s",
+            s.stu.name,s.stu.cgpa,s.college);
+}
+
+*************************************************************************
+Output
+Paul
+97.9
+KSRCT
+Student Information
+Name :Paul 
+CGPA :97.90 
+College :KSRCT
+*************************************************************************
+
+// Nested Structure - as embedded Structure
+
+#include <stdio.h>
+struct student
+ {
+       char name[20];
+       float cgpa;
+       struct studies
+       {       
+       char college[30];
+       }s;
+}stu;
+
+void main()
+{
+scanf("%s %f %s", stu.name,&stu.cgpa,
+                             stu.s.college);
+printf("\nStudent Information");
+printf("\nName :%s \nCGPA :%f \nCollege :%s",
+            stu.name,stu.cgpa,stu.s.college);
+}
+
+*************************************************************************
+Output
+Sika
+34.2
+SVM
+Student Information
+Name :Sika 
+CGPA :34.20 
+College :SVM
+*************************************************************************
+
+// Array of Structure
+
+#include <stdio.h>
+
+struct cadre
+{
+    char emp_name[15];
+    int emp_experience;
+};
+
+void main() 
+{
+   struct cadre emp[2];
+   
+   for(int i=0;i<2;i++)
+   {
+   printf("Enter Cadre %d Name :",i+1);
+   scanf("%s",emp[i].emp_name);
+   printf("\nEnter Cadre %d Experience :",i+1);
+   scanf("%d",&emp[i].emp_experience);
+   }
+   
+   for(int i=0;i<2;i++)
+   {
+   printf("\n~~~~~~~~~~~~~~~~~~~~");  
+   printf("\nDetails of Cadre %d",i+1);
+   printf("\nName       : %s",emp[i].emp_name);
+   printf("\nExperience : %d",emp[i].emp_experience);
+   }
+}
+
+*************************************************************************
+Output
+Enter Cadre 1 Name :Miller
+Enter Cadre 1 Experience :60
+Enter Cadre 2 Name :Captain
+Enter Cadre 2 Experience :50
+~~~~~~~~~~~~~~~~~~~~
+Details of Cadre 1
+Name       : Miller
+Experience : 60
+~~~~~~~~~~~~~~~~~~~~
+Details of Cadre 2
+Name       : Captain
+Experience : 50
+*************************************************************************
+
+// Pointer to Strucutre
+
+#include <stdio.h>
+
+struct xyz
+{
+ int a;
+ int b;
+};
+
+void main() 
+{
+   struct xyz x = {2,4};
+   struct xyz *xptr = &x;
+   printf(“a = %d , b = %d”,xptr->a, xptr->b);
+}
+
+
+*************************************************************************
+Output
+a = 2 , b = 4
+*************************************************************************
+
+// Function to Structure - Example 1
+
+#include <stdio.h>
+struct abc
+{
+    int x, y;
+};
+
+// function prototype
+void disp(struct abc);  
+
+void main()
+{
+struct abc z = {2,4};  // function calling
+disp(z);
+}
+void disp(struct abc z) // function definition
+{
+    printf("X = %d, Y = %d",z.x,z.y);
+}
+
+*************************************************************************
+Output
+X = 2, Y = 4
+*************************************************************************
+
+
+// Function to Structure
+
+#include <stdio.h>
+struct student {
+   char name[50];
+   int age;
+};
+
+// function prototype
+void display(struct student s);
+
+int main() {
+   struct student s1;
+
+   printf("Enter name: ");
+
+   // read string input from the user until \n is entered
+   // \n is discarded
+   scanf("%[^\n]%*c", s1.name);
+
+   printf("Enter age: ");
+   scanf("%d", &s1.age);
+
+   display(s1); // passing struct as an argument
+
+   return 0;
+}
+
+void display(struct student s) {
+   printf("\nDisplaying information\n");
+   printf("Name: %s", s.name);
+   printf("\nAge: %d", s.age);
+}
+
+// Program 1
+
+#include<stdio.h>  
+#include <string.h>    
+struct employee      
+{   int id;      
+    char name[50];      
+}e1;  //declaring e1 variable for structure    
+int main( )    
+{    
+   //store first employee information    
+   e1.id=101;    
+   strcpy(e1.name, "Sonoo Jaiswal");//copying string into char array    
+   //printing first employee information    
+   printf( "employee 1 id : %d\n", e1.id);    
+   printf( "employee 1 name : %s\n", e1.name);    
+return 0;  
+}    
+
+
+// Program 2
+
+#include<stdio.h>  
+#include <string.h>    
+struct employee      
+{   int id;      
+    char name[50];      
+    float salary;      
+}e1,e2;  //declaring e1 and e2 variables for structure    
+int main( )    
+{    
+   //store first employee information    
+   e1.id=101;    
+   strcpy(e1.name, "Sonoo Jaiswal");//copying string into char array    
+   e1.salary=56000;    
+    
+  //store second employee information    
+   e2.id=102;    
+   strcpy(e2.name, "James Bond");    
+   e2.salary=126000;    
+     
+   //printing first employee information    
+   printf( "employee 1 id : %d\n", e1.id);    
+   printf( "employee 1 name : %s\n", e1.name);    
+   printf( "employee 1 salary : %f\n", e1.salary);    
+    
+   //printing second employee information    
+   printf( "employee 2 id : %d\n", e2.id);    
+   printf( "employee 2 name : %s\n", e2.name);    
+   printf( "employee 2 salary : %f\n", e2.salary);    
+   return 0;    
+}    
+
+
+// Program 3
+
+struct Student
+{
+    char stud_name[30];
+    int roll_number;
+    float percentage;
+} stud_1 ;                  // while defining structure
+
+void main(){
+    struct Student stud_2;  // using struct keyword
+    
+    printf("Enter details of stud_1 : \n");
+    printf("Name : ");
+    scanf("%s", stud_1.stud_name);
+    printf("Roll Number : ");
+    scanf("%d", &stud_1.roll_number);
+    printf("Percentage : ");
+    scanf("%f", &stud_1.percentage);
+    
+    printf("***** Student 1 Details *****\n);
+    printf("Name of the Student : %s\n", stud_1.stud_name);
+    printf("Roll Number of the Student : %i\n", stud_1.roll_number);
+    printf("Percentage of the Student : %f\n", stud_1.percentage);
+}
+
+// Array of Structures
+
+#include<stdio.h>  
+#include <string.h>    
+struct student{    
+int rollno;    
+char name[10];    
+};    
+int main(){    
+int i;    
+struct student st[5];    
+printf("Enter Records of 5 students");    
+for(i=0;i<5;i++){    
+printf("\nEnter Rollno:");    
+scanf("%d",&st[i].rollno);    
+printf("\nEnter Name:");    
+scanf("%s",&st[i].name);    
+}    
+printf("\nStudent Information List:");    
+for(i=0;i<5;i++){    
+printf("\nRollno:%d, Name:%s",st[i].rollno,st[i].name);    
+}    
+   return 0;    
+}    
+
+
+*************************************************************************
+
+// Structure Padding
+
+#include <stdio.h>
+
+struct struct1
+{
+    char a; // 1 byte
+    char b; // 1 byte
+    int i;  // 4 bytes
+}s1;
+
+struct struct2
+{
+    char a; // 1 byte
+    int i;  // 4 bytes
+    char b; // 1 byte
+}s2;
+
+void main() 
+{
+   printf("Size of Structure 1 : %d",sizeof(s1));
+   
+   printf("\nSize of Structure 2 :%d",sizeof(s2));
+}
+
+
+Output:
+Size of Structure 1 : 8
+Size of Structure 2 :12
+
+*************************************************************************
+
+// Structure Packing
+
+#pragma pack(1)
+#include <stdio.h>
+
+struct struct1
+{
+    char a; // 1 byte
+    char b; // 1 byte
+    int i;  // 4 bytes
+}s1;
+
+struct struct2
+{
+    char a; // 1 byte
+    int i;  // 4 bytes
+    char b; // 1 byte
+}s2;
+
+void main() 
+{
+   printf("Size of Structure 1 :%d",sizeof(s1));
+   
+   printf("\nSize of Structure 2 :%d",sizeof(s2));
+}
+
+
+Output
+Size of Structure 1 :6
+Size of Structure 2 :6
